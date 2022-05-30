@@ -71,7 +71,7 @@ app.use('/service', createProxyMiddleware({
     changeOrigin: true,
     xfwd: true,
     secure: process.env.SECURE !== 'false',
-    //agent,
+    agent,
     onProxyRes(proxyRes, req) {
 /*        console.log(`PROXY agent stats`, {
             sockets: socketsToObj(agent.sockets),
@@ -79,6 +79,7 @@ app.use('/service', createProxyMiddleware({
             requests: socketsToObj(agent.requests),
         });
         console.log(`PROXY request`, req.headers);*/
+        proxyRes.headers['connection'] = 'keep-alive';
         console.log('PROXY res:', proxyRes.headers);
     }
 }));
