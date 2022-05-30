@@ -1,6 +1,7 @@
 const express = require('express');
 const fs = require("fs");
 const https = require("https");
+const http = require("http");
 
 const app = express();
 
@@ -23,5 +24,7 @@ if (process.env.SSL === 'true') {
     const server = https.createServer(options, app);
     server.listen(port);
 } else {
-    app.listen(port);
+    let server = http.createServer(app);
+    server.keepAliveTimeout = 30000;
+    server.listen(port);
 }
