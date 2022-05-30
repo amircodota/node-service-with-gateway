@@ -1,1 +1,4 @@
-gateway/package.json
+{
+  "private": true,
+  "workspaces": ["service", "gateway"]
+}
