@@ -71,7 +71,7 @@ app.use('/service', createProxyMiddleware({
     changeOrigin: true,
     xfwd: true,
     secure: process.env.SECURE !== 'false',
-    agent,
+    //agent,
     onProxyRes(proxyRes, req) {
 /*        console.log(`PROXY agent stats`, {
             sockets: socketsToObj(agent.sockets),
