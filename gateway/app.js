@@ -16,7 +16,8 @@ app.use('/service', createProxyMiddleware({
     xfwd: true,
     secure: process.env.SECURE !== 'false',
     agent,
-    onProxyRes(proxyRes) {
+    onProxyRes(proxyRes, req) {
+        console.log(`PROXY request`, req.headers);
         console.log('PROXY res:', proxyRes.headers);
     }
 }));
