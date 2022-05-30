@@ -7,6 +7,9 @@ const app = express();
 
 app.get('/service/req', (req, res) => {
    setTimeout(() => {
+       console.log(JSON.stringify({
+           requestHeaders: req.headers,
+       }, null, 2));
        res.sendStatus(200);
    }, 100);
 });

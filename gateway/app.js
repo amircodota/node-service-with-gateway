@@ -15,7 +15,10 @@ app.use('/service', createProxyMiddleware({
     changeOrigin: true,
     xfwd: true,
     secure: process.env.SECURE !== 'false',
-    agent
+    agent,
+    onProxyRes(proxyRes) {
+        console.log('PROXY res:', proxyRes.headers);
+    }
 }));
 
 app.listen(process.env.PORT || 3001);
