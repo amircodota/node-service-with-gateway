@@ -4,7 +4,7 @@ const https = require("https");
 
 const app = express();
 
-const agent = new https.Agent({ keepAlive: true });
+//const agent = new https.Agent({ keepAlive: true });
 
 app.use('/service', createProxyMiddleware({
     target: process.env.SERVICE_URL,
@@ -13,7 +13,7 @@ app.use('/service', createProxyMiddleware({
     changeOrigin: true,
     xfwd: true,
     secure: true,
-    agent
+    //agent
 }));
 
 app.listen(process.env.PORT || 3001);
