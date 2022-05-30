@@ -6,7 +6,7 @@ const http = require("http");
 const app = express();
 
 const SERVICE_URL = process.env.SERVICE_URL;
-const agent = SERVICE_URL.startsWith('https://') ? new https.Agent({ keepAlive: true }) : new http.Agent({ keepAlive: true });
+const agent = SERVICE_URL.startsWith('https://') ? new https.Agent({ keepAlive: true, maxSockets: Number.MAX_VALUE }) : new http.Agent({ keepAlive: true, maxSockets: Number.MAX_VALUE });
 
 app.use('/service', createProxyMiddleware({
     target: SERVICE_URL,
