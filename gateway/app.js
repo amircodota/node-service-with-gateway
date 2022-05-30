@@ -14,7 +14,7 @@ app.use('/service', createProxyMiddleware({
     timeout: 30000,
     changeOrigin: true,
     xfwd: true,
-    secure: true,
+    secure: process.env.SECURE !== 'false',
     agent
 }));
 
