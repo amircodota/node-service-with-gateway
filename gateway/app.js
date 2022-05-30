@@ -6,12 +6,14 @@ const http = require("http");
 const app = express();
 
 const SERVICE_URL = process.env.SERVICE_URL;
-const agent = SERVICE_URL.startsWith('https://') ? new https.Agent({ keepAlive: true, maxSockets: Number.MAX_VALUE }) : new http.Agent({ keepAlive: true, maxSockets: Number.MAX_VALUE });
+const agent = SERVICE_URL.startsWith('https://') ? new https.Agent({ keepAlive: true, keepAliveMsecs: 60_000 }) : new http.Agent({ keepAlive: true, keepAliveMsecs: 60_000 });
 
 const stats = {
   connectionOpen: 0,
   connectionKeptAlive: 0,
-  connectionReused: 0
+  connectionReused: 0,
+  socketsClosed: 0,
+  socketsRemoved: 0
 };
 
 const oldCreateConnection = agent.createConnection;
@@ -21,7 +23,25 @@ agent.createConnection = function () {
     return oldCreateConnection.apply(agent, arguments);
 }
 const oldKeepSocketAlive = agent.keepSocketAlive;
-agent.keepSocketAlive = function () {
+agent.keepSocketAlive = function (socket) {
+    if (!socket.__attachedEvents) {
+        let handled = false;
+        socket.__attachedEvents = true;
+        socket.on('close', () => {
+            if (!handled) {
+                stats.socketsClosed++;
+                handled = true;
+            }
+        });
+        socket.on('agentRemove', () => {
+            if (!handled) {
+                stats.socketsRemoved++;
+                handled = true;
+            }
+        });
+    }
+
+
     //console.log('keeping agent socket alive');
     stats.connectionKeptAlive++;
     return oldKeepSocketAlive.apply(agent, arguments);
