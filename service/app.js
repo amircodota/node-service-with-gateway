@@ -28,6 +28,6 @@ if (process.env.SSL === 'true') {
     server.listen(port);
 } else {
     let server = http.createServer(app);
-    server.keepAliveTimeout = 30000;
+    server.keepAliveTimeout = 300000;
     server.listen(port);
 }
