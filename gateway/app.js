@@ -58,8 +58,8 @@ app.use('/service', createProxyMiddleware({
             freeSockets: socketsToObj(agent.freeSockets),
             requests: socketsToObj(agent.requests),
         });
-        console.log(`PROXY request`, req.headers);
-        console.log('PROXY res:', proxyRes.headers);*/
+        console.log(`PROXY request`, req.headers);*/
+        console.log('PROXY res:', proxyRes.headers);
     }
 }));
 
