@@ -8,6 +8,23 @@ const app = express();
 const SERVICE_URL = process.env.SERVICE_URL;
 const agent = SERVICE_URL.startsWith('https://') ? new https.Agent({ keepAlive: true, maxSockets: Number.MAX_VALUE }) : new http.Agent({ keepAlive: true, maxSockets: Number.MAX_VALUE });
 
+const oldCreateConnection = agent.createConnection;
+agent.createConnection = function () {
+    console.log('creating agent connection');
+    return oldCreateConnection.apply(agent, arguments);
+}
+const oldKeepSocketAlive = agent.keepSocketAlive;
+agent.keepSocketAlive = function () {
+    console.log('keeping agent socket alive');
+    return oldKeepSocketAlive.apply(agent, arguments);
+}
+
+const oldReuseSocket = agent.reuseSocket;
+agent.reuseSocket = function () {
+    console.log('reusing socket alive');
+    return oldReuseSocket.apply(agent, arguments);
+}
+
 function socketsToObj(sockets) {
     return {
         domainCount: Object.keys(sockets).length,
@@ -24,13 +41,13 @@ app.use('/service', createProxyMiddleware({
     secure: process.env.SECURE !== 'false',
     agent,
     onProxyRes(proxyRes, req) {
-        console.log(`PROXY agent stats`, {
+/*        console.log(`PROXY agent stats`, {
             sockets: socketsToObj(agent.sockets),
             freeSockets: socketsToObj(agent.freeSockets),
             requests: socketsToObj(agent.requests),
         });
         console.log(`PROXY request`, req.headers);
-        console.log('PROXY res:', proxyRes.headers);
+        console.log('PROXY res:', proxyRes.headers);*/
     }
 }));
 
