@@ -11,7 +11,7 @@ app.get('/service/req', (req, res) => {
            requestHeaders: req.headers,
        }, null, 2));
        res.sendStatus(200);
-   }, 100);
+   }, Number(process.env.LATENCY || '100'));
 });
 
 const port = process.env.PORT || 3000;
