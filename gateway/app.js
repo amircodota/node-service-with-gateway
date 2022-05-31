@@ -6,7 +6,7 @@ const http = require("http");
 const app = express();
 
 const SERVICE_URL = process.env.SERVICE_URL;
-const agent = SERVICE_URL.startsWith('https://') ? new https.Agent({ keepAlive: true, keepAliveMsecs: 60_000, "ciphers": "AES256-GCM-SHA384" }) : new http.Agent({ keepAlive: true, keepAliveMsecs: 60_000 });
+const agent = SERVICE_URL.startsWith('https://') ? new https.Agent({ keepAlive: true, keepAliveMsecs: 60_000 }) : new http.Agent({ keepAlive: true, keepAliveMsecs: 60_000 });
 
 const stats = {
   connectionOpen: 0,
