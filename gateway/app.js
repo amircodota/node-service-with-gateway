@@ -55,7 +55,7 @@ agent.reuseSocket = function () {
 }
 
 setInterval(() => {
-    console.log(stats);
+    //console.log(stats);
 }, 10000);
 function socketsToObj(sockets) {
     return {
@@ -71,9 +71,9 @@ app.use('/service', createProxyMiddleware({
     changeOrigin: true,
     xfwd: true,
     secure: process.env.SECURE !== 'false',
-    agent,
+    //agent,
     onProxyReq(proxyReq) {
-      proxyReq.setHeader('connection', 'keep-alive');
+      //proxyReq.setHeader('connection', 'keep-alive');
     },
     onProxyRes(proxyRes, req) {
 /*        console.log(`PROXY agent stats`, {
@@ -81,8 +81,8 @@ app.use('/service', createProxyMiddleware({
             freeSockets: socketsToObj(agent.freeSockets),
             requests: socketsToObj(agent.requests),
         });
-        console.log(`PROXY request`, req.headers);*/
-        console.log('PROXY res:', proxyRes.headers);
+        console.log(`PROXY request`, req.headers);
+        console.log('PROXY res:', proxyRes.headers);*/
     }
 }));
 
