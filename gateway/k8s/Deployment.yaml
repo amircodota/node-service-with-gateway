@@ -28,7 +28,7 @@ spec:
               memory: "1024Mi"
           env:
             - name: SERVICE_URL
-              value: "https://internal-gateway-service-ssl"
+              value: "http://internal-gateway-service"
             - name: SECURE
               value: "false"
           readinessProbe:
