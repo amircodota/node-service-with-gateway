@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: internal-gateway-service-ssl
+spec:
+  selector:
+    app: gateway-service-ssl
+  ports:
+    - protocol: TCP
+      port: 443
+      targetPort: 3000

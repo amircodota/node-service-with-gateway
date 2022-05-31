@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gateway-service-ssl
+  labels:
+    app: gateway-service-ssl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gateway-service-ssl
+  template:
+    metadata:
+      labels:
+        app: gateway-service-ssl
+    spec:
+      containers:
+        - name: service-ssl
+          image: ${IMAGE}
+          ports:
+            - containerPort: 3000
+          resources:
+            requests:
+              cpu: 2
+              memory: "1024Mi"
+            limits:
+              cpu: 2
+              memory: "1024Mi"
+          env:
+            - name: LATENCY
+              value: "15"
+            - name: SSL
+              value: "true"
