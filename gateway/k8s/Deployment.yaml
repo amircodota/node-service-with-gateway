@@ -28,7 +28,7 @@ spec:
               memory: "1024Mi"
           env:
             - name: SERVICE_URL
-              value: "http://internal-gateway-service"
+              value: "https://internal-gateway-service-ssl"
           readinessProbe:
             httpGet:
               path: /service/req
