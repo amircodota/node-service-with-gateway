@@ -29,6 +29,8 @@ spec:
           env:
             - name: SERVICE_URL
               value: "https://internal-gateway-service-ssl"
+            - name: SECURE
+              value: "false"
           readinessProbe:
             httpGet:
               path: /service/req
