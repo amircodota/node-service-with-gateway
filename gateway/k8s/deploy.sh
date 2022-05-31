@@ -2,6 +2,8 @@
 set -e
 cd "$(dirname "$0")"
 
+set -e
+
 COMMIT=$(git rev-parse HEAD)
 export IMAGE=gcr.io/proud-maker-166101/gateway-sample:$COMMIT
 
