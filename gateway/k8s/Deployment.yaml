@@ -29,3 +29,9 @@ spec:
           env:
             - name: SERVICE_URL
               value: "http://internal-gateway-service"
+          readinessProbe:
+            httpGet:
+              path: /service/req
+              port: 3001
+            initialDelaySeconds: 3
+            periodSeconds: 3

@@ -16,4 +16,5 @@ docker push $IMAGE
 cd k8s/
 
 cat Deployment.yaml | envsubst | kubectl apply -f -
+kubectl apply -f InternalService.yaml
 kubectl apply -f ExternalService.yaml

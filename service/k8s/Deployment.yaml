@@ -29,3 +29,9 @@ spec:
           env:
             - name: LATENCY
               value: "15"
+          readinessProbe:
+            httpGet:
+              path: /service/req
+              port: 3000
+            initialDelaySeconds: 3
+            periodSeconds: 3
