@@ -71,7 +71,7 @@ app.use('/service', createProxyMiddleware({
     changeOrigin: true,
     xfwd: true,
     secure: process.env.SECURE !== 'false',
-    agent,
+    //agent,
     onProxyReq(proxyReq) {
       //proxyReq.setHeader('connection', 'keep-alive');
     },
