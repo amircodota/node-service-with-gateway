@@ -73,7 +73,7 @@ app.use('/service', createProxyMiddleware({
     secure: process.env.SECURE !== 'false',
     //agent,
     onProxyReq(proxyReq) {
-      //proxyReq.setHeader('connection', 'keep-alive');
+      proxyReq.setHeader('connection', 'keep-alive');
     },
     onProxyRes(proxyRes, req) {
 /*        console.log(`PROXY agent stats`, {
